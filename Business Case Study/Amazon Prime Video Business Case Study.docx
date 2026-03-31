@@ -1,0 +1,583 @@
+Title: Amazon Prime Video Business Case Study
+
+Name: Jevin Chokshi 
+Domain: Entertainment Industry
+Chosen Platform: Amazon Prime Video
+
+SECTION 1: PRODUCT DISSECTION
+1. Platform Selection:
+Platform Chosen: Amazon Prime
+
+Amazon Prime Video is an online video streaming platform owned by Amazon. It allows users to watch movies, TV shows, and original content through the internet.
+
+The platform is available in many countries and has millions of users worldwide. Prime Video is included with Amazon Prime membership, which also provides benefits such as faster delivery, music streaming, and gaming services.
+I selected Amazon Prime Video because it is one of the most popular entertainment platforms and it uses data analytics to understand user preferences and recommend content. This makes it a good example for analyzing how data helps improve user experience and business growth.
+2. Core Features and Functionalities:
+Online Streaming: Users can watch movies and TV shows anytime through the internet without depending on television schedules.
+Personalized Recommendations: The platform suggests movies and shows based on the user’s watch history and preferences.
+Offline Download: Users can download movies or shows and watch them later without an internet connection.
+Multiple Profiles: Users can create multiple profiles within a single account so that each user receives personalized recommendations.
+
+3. Real World Problems Solved
+Limited Access to Entertainment: Earlier people depended on television schedules. Prime Video allows users to watch content anytime.
+Difficulty Finding Good Content: With thousands of movies available, users may find it difficult to choose what to watch. Prime Video solves this problem through personalized recommendations.
+Device Limitations: Traditional entertainment was limited to televisions. Prime Video allows streaming on multiple devices.
+Global Content Availability: Prime Video provides movies and shows from different countries, giving users access to international entertainment
+
+
+SECTION 2: SCHEMA DESIGN
+1.User
+Attribute	Type	Description
+UserID	Primary Key	Unique identifier for the user
+Name	String	Name of the user
+Email	String	User email address
+Password	String	Account password
+Country 	String	Country of the user
+RegistrationDate	Date	Date the user registered
+SubscriptionStatus	String	Active or inactive subscription
+2. Subscription
+Attribute	Type	Description
+SubscriptionID	Primary Key	Unique identifier for subscription
+UserID	Foreign Key	References User
+PlanType	String	Monthly or yearly plan
+StartDate	Date	Subscription start date
+EndDate	Date	Subscription expiry date
+PaymentStatus	String	Status of payment
+Amount	Integer	Payment amount
+PaymentMethod	String	Card / UPI / Wallet
+PaymentProvider	String	Bank or provider
+PaymentDate	Date	Date of payment
+3. Content 
+Attribute	Type	Description
+ContentID	Primary Key	Unique identifier for content
+Title	String	Name of the movie or show
+Genre	String	Category of content
+Language	String	Language of the content
+ReleaseYear	Integer	Year of release
+Duration	Integer	Length of the video
+ProductionCompany	String	Production studio
+4. Watch History 
+Attribute	Type	Description
+WatchID	Primary Key	Unique identifier for watch activity
+ProfileID	Foreign Key	References Profile
+ContentID	Foreign Key	References Content
+WatchDate	Date	Date when content was watched
+WatchDuration	Integer	Time spent watch
+5. Ratings and Reviews
+Attribute	Type	Description
+ReviewID	Primary Key	Unique identifier for review
+ProfileID	Foreign Key	References Profile
+ContentID	Foreign Key	References ContentID
+Rating	Integer	Rating given by user
+ReviewText	String	User review comment
+ReviewDate	Date	Date of review
+6. Profile
+Attribute	Type	Description
+profileID	Primary Key	Unique identifier for profile
+UserID	Foreign Key	References User table
+ProfileName	String	Name of profile
+AgeRestriction	Integer	Age restriction for content
+CreatedDate	Date	Profile creation date
+7.PlaybackSession
+Attribute	Type	Description
+SessionID	Primary key	Unique streaming session
+ProfileID	Foreign Key	References Profile
+ContentID	Foreign Key	References Content
+DeviceType	String	Mobile / TV / Laptop
+DeviceName	String	Name of device
+StartTime	Timestamp	Session start time
+EndTime	Timestamp	Session endtime
+Resolution	Integer	Streaming resolution
+Bitrate	Integer	Streaming bitrate
+BufferTime	Integer	Buffering duration
+8.Recommendation   
+Attribute	Type	Description
+RecommendationID	Primary key	Unique recommendation record
+ProfileID	Foreign key	Reference profile
+ContentID	Foreign key	Recommended content
+RecommendationScore	Float	Algorithm score
+RecommendedDate	Date	Date recommendation generated
+9.SearchLogs
+Attribute	Type	Description
+SearchID	Primary key	Unique search record
+ProfileID	Foreign key	References profile
+SearchQuery	String	User search keyword
+SearchTime	Timestamp	Time of search
+10.Adds
+Attribute	Type	Description
+AdID	Primary Key	Unique advertisement identifier
+ContentID	Foreign Key	Content where ad appears
+AdvertiserName	String	Brand advertising
+AdDuration	Integer	Length of advertisement
+AdType	String	Video / banner ad
+11.ContentCast
+Attribute	Type	Description
+ContentID	Foreign Key	References Content
+PersonID	Foreign Key	References CastCrew
+12. CastCrew
+Attribute	Type	Description
+PersonID	Primary Key	Unique person identifier
+PersonName	string	Actor or director name
+RoleType	String	Actor or Director
+BirthDate	Date	Birth Date
+Nationality	String	Nationality
+
+Relationship Between Entities
+The following table outlines the relationships between the various entities in the streaming service database schema, as defined by the provided diagram.
+
+Source Entity	Relationship Type	Target Entity
+User	One to Many	Profile
+User	One to Many	Subscription
+Profile	One to Many	Content
+Profile	One to Many	WatchHistory
+Profile	One to Many	RatingsReviews
+Profile	One to Many	SearchLogs
+Profile	One to Many	PlaybackSession
+Content	One to Many	WatchHistory
+Content	One to Many	RatingsReviews
+Content	One to Many	PlaybackSession
+Content	Many to Many	CastCrew
+Content	One to Many	Ads
+Subscription	One to Many	Content
+Subscription	One to Many	PlaybackSession
+RatingsReviews	One to Many	WatchHistory
+RatingsReviews	One to Many	SearchLogs
+PlaybackSession	One to Many	Ads
+
+Key Relationship Details
+
+User Centrality:  The User entity acts as the primary root, connecting to both Subscription and Profile.
+
+Profile Activities:  The Profile entity is linked to almost all activity logs, including WatchHistory, RatingsReviews, SearchLogs, and PlaybackSessions.
+
+Content Connections:  Content serves as the bridge between the media metadata and the user interactions (reviews, history, sessions).
+
+Many-to-Many:  Note that Content and CastCrew share a Many-to-Many relationship, typically requiring a junction table in a physical database implementation.
+
+
+
+
+
+
+Er diagram
+ 
+
+Revenue and Profit Growth Strategies
+Strategy 1: Expand Advertising-Supported Subscription Plans
+Description -: Introduce or expand low-cost subscription plans that include advertisements. 
+Data Justification -:
+Amazon Prime Video’s advertising business is expanding rapidly. The company is expected to generate around $2–3 billion in advertising revenue in 2025 after introducing ads to its streaming platform, with projections indicating continued growth as more brands invest in Prime Video’s large global audience. 
+Business Impact -:
+ Benefits include: 
+● Attract price-sensitive users 
+● Generate additional ad revenue
+● Increase overall platform reach 
+Estimated Profit Increase - : +8–10% revenue growth
+
+Strategy 2: Produce More Regional and Local Content 
+Description -:
+ Invest in local productions such as: 
+● Indian films and series
+ ● Korean dramas 
+● Latin American content 
+Data Justification -: 
+Regional content drives subscriber growth because users prefer entertainment in their own language and culture. Global streaming companies are increasingly investing in localized content to attract regional audiences.
+Business Impact -:
+ ● Increased subscriptions in emerging markets
+ ● Stronger international audience engagement
+Estimated Profit Increase -:+6–8%
+
+3. AI Recommendation System Impact
+ Use machine learning models to recommend personalized content based on:
+● watch history 
+● ratings
+● search behavior 
+Data Justification 
+Recommendation systems increase user engagement and viewing hours, which directly improves subscription retention and user satisfaction.
+ Netflix collects billions of viewing hours annually, providing valuable data to improve content recommendations.
+ Business Impact
+● Increased watch time 
+● Reduced subscriber churn 
+● Better content discovery
+ Estimated Profit Increase +5–7%
+Strategy 4: Expand into Gaming and Interactive Entertainment
+ Description -:
+ Streaming platforms are expanding beyond movies into:
+ ● mobile games interactive shows
+ ● virtual experiences
+ Business Impact -:
+● New revenue streams 
+● Increased platform engagement 
+● Attraction of younger audiences 
+Estimated Profit Increase -:+5%
+
+Strategy 5: Strategic Price Optimization Description -: 
+Use data analytics to adjust subscription pricing based on: 
+● region 
+● user behavior 
+● purchasing power 
+Example: 
+● Lower prices in developing markets 
+● Premium pricing in high-income markets Business Impact 
+● Increased revenue per user 
+● Improved subscription growth 
+Estimated Profit Increase +3–5
+
+Total Estimated Profit Growth 
+
+Strategy	Expected Increase
+Advertising subscriptions	8–10% 
+Regional content 	6–8%
+AI recommendations	5–7%
+Gaming expansion	5%
+Pricing optimization	3–5%
+Total Potential Growth ≈ 25–30% profit increase
+
+SECTION 3: Guesstimates
+Guesstimate Report: Indian Entertainment & Streaming Industry
+Introduction
+This report presents structured guesstimates for major trends in the Indian entertainment and streaming industry. Guesstimation combines verified industry statistics with logical assumptions to estimate future market behavior when exact numbers are unavailable.
+India is one of the fastest-growing digital entertainment markets due to increasing smartphone penetration, affordable mobile data, and the rapid expansion of OTT platforms.
+Major platforms operating in India include Netflix, Amazon Prime Video, Disney+ Hotstar, and JioCinema.
+
+1. Estimated Increase in Streaming Subscriptions in India (Next Five Years)
+According to the Ormax OTT Audience Report 2025, India currently has:
+• 601 million OTT users
+• 148.2 million active paid OTT subscriptions
+The OTT audience represents about 41% of India’s population, showing rapid digital entertainment growth.
+Growth of OTT audiences in India has averaged approximately 10–14% annually in recent years.
+Projection
+If the paid subscription base grows conservatively at 10% annually:
+Future subscriptions in 5 years:
+148 million × (1.10)^5 ≈ 238 million
+Estimated Result
+Paid OTT subscriptions in India could reach approximately 220–240 million by 2030, representing roughly 60% growth over the next five years.
+
+2. Average Digital Content Consumption per Week in India
+India’s OTT market is strongly mobile-first. Studies show:
+• 97% of OTT viewers watch content on smartphones
+• 81% watch exclusively on smartphones
+Digital media consumption includes streaming platforms, social media videos, and music streaming.
+Estimated daily entertainment consumption:
+Streaming video ≈ 2 hours
+Social media video ≈ 1.5 hours
+Music/podcasts ≈ 0.5 hours
+Total daily digital media consumption ≈ 4 hours
+Weekly consumption:
+4 × 7 = 28 hours
+Estimated Result
+An average Indian user is likely to consume approximately 25–30 hours of digital entertainment per week.
+
+3. Market Share of VR/AR Entertainment in India (Next Decade)
+Immersive technologies such as Virtual Reality (VR) and Augmented Reality (AR) are still in early adoption stages in India.
+Currently, the segment is primarily used in:
+• Gaming
+• Theme parks
+• Experiential entertainment
+• Sports broadcasting
+Given global forecasts of around 20–30% annual growth in immersive entertainment markets, adoption in India will increase as hardware costs fall and technology improves.
+Estimated Result
+VR and AR entertainment could account for approximately 4–6% of India’s entertainment market by 2035.
+
+4. Number of Films and OTT Series Produced in India by 2030
+India is one of the largest film-producing countries in the world, producing films in multiple languages including Hindi, Tamil, Telugu, Malayalam, Kannada, and Bengali.
+Industry estimates suggest:
+• India produces around 1,500–2,000 films annually across languages
+• OTT platforms release around 300–400 web series per year
+Total annual production output:
+Approximately 2,000–2,400 productions
+Assuming industry growth of approximately 4–5% annually due to OTT demand:
+Projected production by 2030:
+Approximately 2,800–3,000 productions annually
+Estimated Result
+India could produce around 3,000 films and OTT series per year by 2030.
+
+5. International Share of Global Box Office Revenue
+Globally, box office revenue has gradually shifted toward international markets.
+The United States and Canada account for roughly 25–30% of global box office revenue, while the remaining 70–75% comes from international markets, including Asia.
+Rapid growth in cinema markets such as:
+• India
+• China
+• South Korea
+• Latin America
+is expected to increase the international share further.
+Estimated Result
+International markets could contribute approximately 75–80% of global box office revenue within the next five years.
+
+Summary of Guesstimate Results
+Streaming subscription growth in India (5 years): ~60% increase
+Average weekly digital content consumption: 25–30 hours
+VR/AR entertainment market share in India (10 years): 4–6%
+Films and OTT series produced annually in India by 2030: ~3,000 productions
+International share of global box office revenue: 75–80%
+________________________________________
+References
+Ormax Media – OTT Audience Report 2025
+India Brand Equity Foundation (IBEF) – OTT Industry Insights
+Economic Times – India OTT market statistics
+Business Standard – OTT and Connected TV adoption in India
+PwC Global Entertainment & Media Outlook
+Motion Picture Association Global Film Market Report
+
+ SECTION 4: COHORT ANALYSIS & A/B TESTING
+1.Scenario 1: Cohort Analysis 
+To analyze user retention, the platform groups users based on the month they subscribed to the premium service. Each group is called a cohort. Cohort analysis helps track how many users remain active over time after subscribing.
+For example:
+Signup Month	Users	Month 1 Active	Month 2 Active	Month 3 Active
+January	1000	800	650	500
+February	900	720	600	420
+March	1100	900	780	640
+Retention Rate Example:
+Month 1 Retention
+ 820 ÷ 1000 = 82%
+Month 2 Retention
+ 700 ÷ 1000 = 70%
+Month 3 Retention
+ 560 ÷ 1000 = 56%
+The analysis shows that most users remain active in the first month after subscribing. However, retention begins to decline in later months, indicating that some users cancel their subscriptions after a short period.
+Strategies to Improve Retention
+To improve long-term retention, the platform can:
+●	Release exclusive content regularly
+●	Provide personalized movie recommendations
+●	Offer discounts or loyalty rewards for long-term subscribers
+●	Send notifications about new shows and movies
+These strategies encourage users to stay engaged and continue their subscription.
+2.Scenario 2: A/B Testing
+A streaming platform wants to test two different recommendation layouts to determine which design improves user engagement and subscription conversions.
+Version A – Basic Recommendation Layout
+This version shows a simple list of recommended movies based on the user's viewing history. It includes the movie title and poster.
+Version B – Interactive Recommendation Layout
+This version provides a more interactive experience with additional features such as:
+●	movie trailers
+●	ratings
+●	short descriptions
+●	“watch now” buttons
+A/B Test Method
+Users are randomly divided into two groups:
+Group 1 - Version A
+Group 2 - Version B
+Both versions are tested for a fixed period (for example, two weeks) to collect performance data.
+Metrics Used to Evaluate Performance
+The platform measures the following metrics:
+Retention Rate
+Percentage of users who return to the platform after their first visit.
+Watch Time (User Engagement) : Total time users spend watching content.
+Conversion Rate : Percentage of users who subscribe or upgrade their plan.
+
+Metric	Version A	Version B
+Retention Rate	65%	62%
+Watch Time	3 hr	4.5hr
+Conversion Rate	8%	12%
+Analysis
+Version B increases watch time and subscription conversions, which indicates that users engage more with the interactive recommendations. However, retention is slightly lower, possibly because the interface is more complex.
+Business Decision
+The company may adopt Version B but improve the design by simplifying the interface and reducing unnecessary elements. This approach maintains high engagement while improving retention.
+
+SECTION5: DBMS SCENARIO QUESTIONS & ANSWERS – AMAZON PRIME VIDEO
+1. Transaction Management
+Question
+A user rents a movie on Amazon Prime Video. Payment is deducted but the movie does not appear in the user's library.
+Answer
+This issue can be prevented using database transactions and ACID properties.
+Solution Steps
+1.     Wrap payment processing and library update in a single transaction.
+2.     If both operations succeed → COMMIT.
+3.     If any operation fails → ROLLBACK.
+Example Flow
+BEGIN TRANSACTION
+ 
+Process Payment
+Add Movie to User Library
+ 
+IF success
+COMMIT
+ELSE
+ROLLBACK
+This ensures atomicity, meaning the transaction either completes fully or not at all.
+2. Watch History Storage
+Question
+Millions of users watch content daily on Amazon Prime Video. The system must store watch history and playback position.
+Answer
+Design a Watch History table.
+Schema Example:
+Column	Description
+user_id	User identifier
+content_id	Movie/Show identifier
+watch_time	Total watch duration
+last_position	Last playback position
+watched_at	Timestamp
+Optimization
+·        Index on user_id
+·        Partition by date
+·        Cache playback position using Redis
+This allows fast resume playback across devices.
+3. Recommendation Engine Database
+Question
+The recommendation system requires fast access to user viewing patterns.
+Answer
+Use a hybrid architecture:
+Components
+1.     Relational DB
+o   Store structured data like ratings and subscriptions
+2.     NoSQL Database
+o   Store viewing behavior
+3.     Cache Layer (Redis)
+Example
+User → Watch History → Recommendation Engine → Suggested Movies
+Benefits:
+·        Fast recommendations
+·        Scalable architecture
+4. Regional Content Restrictions
+Question
+Different countries have different movie licenses.
+Answer
+Create region-based licensing tables.
+Schema Example
+content_id	   region	license_status
+101	     India          	               Available
+101	Germany	               Not Available
+When a user logs in:
+1.     Detect user region
+2.     Filter available content
+Example query:
+SELECT * FROM content
+WHERE region = user_region
+AND license_status = 'Available'
+5. Search Optimization
+Question
+Users search by actor name, genre, and language.
+Answer
+Use database indexing.
+Indexes
+·        Composite index
+·        Full-text index
+Example:
+INDEX(actor_name, genre, language)
+Full-text indexing enables faster search for movie titles and descriptions.
+6. Handling Traffic Spikes
+Question
+When a new movie releases on Amazon Prime Video, millions of users access the platform simultaneously.
+Answer
+Use distributed database architecture.
+Key techniques:
+1.     Horizontal sharding
+Example:
+Shard 1 → Users 1–1M
+Shard 2 → Users 1M–2M
+2.     Read replicas
+Separate read traffic from write traffic.
+3.     Load balancers
+Distribute user requests.
+This prevents database overload.
+7. Subscription Billing System
+Question
+Users subscribe monthly or yearly.
+Answer
+Design a subscription table.
+Schema:
+
+Column	Description
+user_id	User ID
+plan_type	Monthly / Yearly
+start_date	Subscription start
+renewal_date	Next billing
+Status 	Active / Cancelled
+
+Benefits:
+·        Tracks billing history
+·        Enables automated renewals
+8. Streaming Analytics Storage
+Question
+The platform generates billions of streaming logs daily.
+Answer
+Use big data architecture.
+Storage Layers
+1.     Data Lake
+o   Raw streaming logs
+2.     Data Warehouse
+o   Structured analytics
+Partition logs by:
+·        Date
+·        Region
+Example:
+logs_2026_india
+logs_2026_us
+This improves analytics performance.
+9. Metadata Versioning
+Question
+Movie metadata such as cast or synopsis changes over time.
+Answer
+Use Slowly Changing Dimension Type 2 (SCD).
+Example Table
+content_id	 synopsis	start_date	end_date
+    201	 Old Synopsis	2024	           2025
+    201	 Updated    Synopsis	2025	           NULL
+Benefits:
+·        Keeps historical data
+·        Supports analytics
+10. Fraud Detection
+Question
+Some users share accounts across multiple countries.
+Answer
+Create login event logs.
+Schema
+user_id	device	location	login_time
+Use analytics queries to detect suspicious patterns.
+Example:
+SELECT user_id
+FROM login_logs
+WHERE login_locations > 3
+IN 24 HOURS
+This helps detect account sharing fraud.
+11. Multi-Device Playback Sync
+Question
+Users pause a movie on mobile and continue on TV.
+Answer
+Use real-time playback synchronization.
+Architecture
+Device → API → Cache (Redis) → Database
+Store:
+·        playback_position
+·        device_id
+·        timestamp
+The next device retrieves the latest playback state.
+12. Trending Content System
+Question
+The platform shows “Trending Now”.
+Answer
+Create aggregated view tables.
+Example schema:
+content_d	views_last_24h
+Use stream processing tools to update rankings every few minutes.
+Trending algorithm may include:
+·        views
+·        watch time
+·        ratings
+13. Parental Controls
+Question
+Parents want to restrict adult content for children.
+Answer
+Design content rating and profile control tables.
+Content Table
+content_id	rating
+501 	PG
+502	R
+Profile Table
+| profile_id | age_limit |
+During queries:
+SELECT * FROM content
+WHERE rating <= profile_age_limit
+This filters restricted content.
+14. Offline Download Management
+Question
+Users download movies for offline viewing.
+Answer
+Create a download license table.
+Schema
+| user_id | content_id | device_id | expiry_time |
+Benefits:
+·        Controls download limits
+·        Enforces expiry
+Example: downloads expire after 48 hours.
+ 
+
